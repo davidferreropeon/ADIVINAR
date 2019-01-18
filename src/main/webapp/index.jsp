@@ -12,7 +12,7 @@
 
     <title>Acceso Agente</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS  DFDFDF-->
     <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -34,7 +34,7 @@
 	   
 	   		<h1 class="h3 mb-3 font-weight-normal">Adivina la palabra</h1>
 	   	   	  
-	  	 	<div class="mb-1">
+	  	 	<div class="mb-1"> 
 			   <label for="palabra" >Escribe una palabra</label>
 			   <input type="text" id="palabra" name=palabra class="form-control">
 		 	</div>

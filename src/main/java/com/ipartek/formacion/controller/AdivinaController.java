@@ -25,7 +25,7 @@ private String palabra;
 	}
 
 	
-	// DO POST PARA CREAR MULTA
+	// DO POST PARA CREAR MULTA SDS
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
