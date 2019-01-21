@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 @WebServlet("/adivina")
 public class AdivinaController extends HttpServlet {
 private String palabra;
+private int contador=0;
+private int maxInt=7;
 	
 
 
@@ -26,23 +28,32 @@ private String palabra;
 
 	
 	// DO POST PARA CREAR MULTA SDS
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
-		String palabra = request.getParameter("palabra");
-	
-
-if (palabra.equals("pepe")) {
-	
-	request.setAttribute("mensaje", "has adivinado la palabra");
-	request.getRequestDispatcher("index.jsp").forward(request, response);
-}else {
-	
-	request.setAttribute("palabra", palabra);  // para que salga la palabra que has escrito
-	request.setAttribute("mensaje", "has fallado");
-	request.getRequestDispatcher("index.jsp").forward(request, response);
-
-}
-
-}
+			String palabra = request.getParameter("palabra");
+				
+				try {
+					if (palabra.equals("pepe")) {
+						
+						request.setAttribute("mensaje", "has adivinado la palabra");
+						if (contador != maxInt )
+						contador ++;
+						request.setAttribute("contador", contador);
+						request.setAttribute("maxInt", maxInt);
+						
+					}else {
+						
+						request.setAttribute("palabra", palabra);  // para que salga la palabra que has escrito
+						request.setAttribute("mensaje", "has fallado");
+					
+						contador ++;
+						request.setAttribute("contador", contador);
+					
+					}
+				}catch ( Exception e) {
+					
+				}finally {
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				}
+			}
 }

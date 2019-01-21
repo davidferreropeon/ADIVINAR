@@ -45,7 +45,53 @@
 
 	</form>
 	
-	${palabra}
+	<p>${palabra}</p>
+	
+	<label for="concepto">Concepto  <span id="contadorLabel">(0/250)</span></label>
+	<p>${contador}/${maxInt}</p>
+
+
+ <script>
+         
+       let label;
+       let concepto; //textarea
+       
+       const MAX_INTENTOS = 7; 
+       const MIN_INTENTOS = 0;
+       
+       window.addEventListener('load', function() {
+           
+           console.log('el DOM cargado y listo');
+           label   = document.getElementById('contadorLabel');
+           concepto = document.getElementById('concepto');
+            
+           label.textContent = `0/`+ MAX_INTENTOS;
+           label.style.color = 'orange';
+           
+           concepto.addEventListener("keyup", function(){
+               
+               let caracteres = concepto.value.length;                             
+               
+               if( caracteres < MIN_INTENTOS ){
+                    label.style.color = 'orange';   
+               }else if ( caracteres  > MAX_INTENTOS ){
+                   concepto.value = concepto.value.substr(0,MAX_INTENTOS);
+               }else{
+                    label.style.color = 'green';
+               }
+               
+               caracteres = concepto.value.length;
+               label.textContent = caracteres + `/`+ MAX_INTENTOS;
+               
+           });
+           
+           
+       });
+    
+   </script>
+   
+
+
 </body>	
 
 </html>
