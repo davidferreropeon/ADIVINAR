@@ -1,52 +1,55 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException; //
-import java.util.ArrayList;
 
-import javax.servlet.ServletConfig;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.modelo.pojo.HomePojo;
+
+import com.ipartek.formacion.pojo.Palabra;
 
 
 @WebServlet("/adivina")
 public class AdivinaController extends HttpServlet {
 
+
+private static final long serialVersionUID = 1L;
 private int contador=1;
 private int maxIntentos=7;
+
+private String correcta1="p";
+private String correcta2="i";
 	
 
 
-	// do get para recibir formulario al pulsar nueva multa
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 	}
 
-	
-	// DO POST PARA CREAR MULTA SDS
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
-			String letra1 = request.getParameter("palabra");
-			String letra2 = request.getParameter("palabra2");
-			
+			String letra1 = request.getParameter("letra1");
+			String letra2 = request.getParameter("letra2");
+			//Palabra palabra =new Palabra(letra1 ,letra2); // palabra introducida
+			//Palabra palabra2 =new Palabra(correcta1 ,correcta2); // palabra que hay que adivinar
 				
 				try {
-					
-					if (letra1.equals("p")&& (letra2.equals("i"))) {	
+			
+				
+						if (letra1.equals(correcta1)&&(letra2.equals(correcta2))) {	
 							request.setAttribute("contador", contador);
 							request.setAttribute("maxInt", maxIntentos);
 							request.setAttribute("mensaje", "Has ganado");
+							
 							contador=1;	
-							if (letra1 == "p") {
-								
-							}
+						
 					}else {	
 						if (contador < maxIntentos) {
 							
@@ -66,9 +69,11 @@ private int maxIntentos=7;
 						
 						
 						 // todo que no empiece vacio
-					}
-				}catch ( Exception e) {
+					}	
 					
+					
+				}catch ( Exception e) {
+					request.setAttribute("mensaje", "Error Fatal");
 				}finally {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 				}

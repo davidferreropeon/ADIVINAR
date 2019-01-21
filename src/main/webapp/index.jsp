@@ -48,8 +48,8 @@
 	<form  class="form-signin" action="adivina" method="post" action="login">
 		<c:if test="${contador!=7}">   	  
 	  	 	<div class="mb-1"> 
-			   <input type="text" id="palabra" name=palabra placeholder="letra 1"  class="form-control">
-			   <input type="text" id="palabra2" name=palabra2 placeholder=" letra 2"  class="form-control">
+			   <input type="text" id="letra1" name=letra1 placeholder="letra 1"  class="form-control">
+			   <input type="text" id="letra2" name=letra2 placeholder=" letra 2"  class="form-control">
 		 	</div>
 		    <button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
 				PROBAR SUERTE
@@ -62,12 +62,13 @@
 			</button>
 		</c:if> 
 	</form>
-	
-    		<c:if test="${not empty contador}">	  
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-				 	${contador}/${maxInt}	 
-				</div>	 	
-	 		</c:if> 
+	<p>numero intentos:
+    	<c:if test="${not empty contador}">	  
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				 ${contador}/${maxInt}	 
+			</div>	 	
+	 	</c:if>
+	 </p> 
 
 
 <label class="alert alert-info alert-dismissible fade show" >${letra1}</label>
