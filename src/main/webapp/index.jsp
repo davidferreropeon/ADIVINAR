@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Acceso Agente</title>
+    <title>ahorcado</title>
 
     <!-- Bootstrap core CSS  DFDFDF-->
     <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,77 +19,60 @@
     <link href="css/login.css" rel="stylesheet">
 <!-- FONT AWESOME -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
   </head>
 	
 	
 <body>
-	<div class="alert alert-info alert-dismissible fade show" role="alert">
-		  <strong>${mensaje}</strong>
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
+
+   <section class = "flex-row" >
+   <h1>Ahorcado</h1>
+   	<div class="col-sm-6">
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+			<strong>${mensaje}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+   	<div class="col-sm-6">
+	  	<div  id="ahorcado" class="fallo${contador}"></div> 
+	  		<script src="js/main.js"></script> 
 	</div>
-	
+
+	</div>
+
+	      
+		
+	</section>
 	<form  class="form-signin" action="adivina" method="post" action="login">
-	   
-	   		<h1 class="h3 mb-3 font-weight-normal">Adivina la palabra</h1>
-	   	   	  
+		<c:if test="${contador!=7}">   	  
 	  	 	<div class="mb-1"> 
-			   <label for="palabra" >Escribe una palabra</label>
-			   <input type="text" id="palabra" name=palabra class="form-control">
+			   <input type="text" id="palabra" name=palabra placeholder="letra 1"  class="form-control">
+			   <input type="text" id="palabra2" name=palabra2 placeholder=" letra 2"  class="form-control">
 		 	</div>
-
-		      <button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
-		      Acceder
-		      </button>
-
+		    <button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+				PROBAR SUERTE
+			</button>
+		</c:if>
+ 
+		<c:if test="${contador==7}">	
+			<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+				VOLVER A EMPEZAR
+			</button>
+		</c:if> 
 	</form>
 	
-	<p>${palabra}</p>
-	
-	<label for="concepto">Concepto  <span id="contadorLabel">(0/250)</span></label>
-	<p>${contador}/${maxInt}</p>
+    		<c:if test="${not empty contador}">	  
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				 	${contador}/${maxInt}	 
+				</div>	 	
+	 		</c:if> 
 
 
- <script>
-         
-       let label;
-       let concepto; //textarea
-       
-       const MAX_INTENTOS = 7; 
-       const MIN_INTENTOS = 0;
-       
-       window.addEventListener('load', function() {
-           
-           console.log('el DOM cargado y listo');
-           label   = document.getElementById('contadorLabel');
-           concepto = document.getElementById('concepto');
-            
-           label.textContent = `0/`+ MAX_INTENTOS;
-           label.style.color = 'orange';
-           
-           concepto.addEventListener("keyup", function(){
-               
-               let caracteres = concepto.value.length;                             
-               
-               if( caracteres < MIN_INTENTOS ){
-                    label.style.color = 'orange';   
-               }else if ( caracteres  > MAX_INTENTOS ){
-                   concepto.value = concepto.value.substr(0,MAX_INTENTOS);
-               }else{
-                    label.style.color = 'green';
-               }
-               
-               caracteres = concepto.value.length;
-               label.textContent = caracteres + `/`+ MAX_INTENTOS;
-               
-           });
-           
-           
-       });
-    
-   </script>
-   
+<label class="alert alert-info alert-dismissible fade show" >${letra1}</label>
+<label class="alert alert-info alert-dismissible fade show" >${letra2}</label>
+
 
 
 </body>	
