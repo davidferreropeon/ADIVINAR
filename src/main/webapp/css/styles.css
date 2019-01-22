@@ -3,6 +3,11 @@ h1 {
     color: #3DA9C7;
 }
 
+.respuesta {
+	background-color:#F9CA0E;
+	color: black;
+	text-align:center;
+}
 #ahorcado {
     height: 290px;
     width: 235px;
@@ -11,7 +16,7 @@ h1 {
 }
 
 .fallo0{
-    background-position-x: -245x;
+    background-position-x: -0x;
 }
 
 .fallo1{

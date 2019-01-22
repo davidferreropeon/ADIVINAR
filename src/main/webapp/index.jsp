@@ -25,26 +25,42 @@
 	
 	
 <body>
+<c:if test="${not empty acierto}">	
+
+<h1>HAS GANADO</h1>
+	<div class="alert alert-info alert-dismissible fade show" role="alert">
+		<strong>La palabra correcta es <p class= "respuesta">${palabra}</p></strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<form  class="form-signin" action="adivina" method="post" action="login">
+		<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+			VOLVER A EMPEZAR
+		</button>
+	</form>
+</c:if>
+<c:if test="${empty acierto}">	
 
    <section class = "flex-row" >
-   <h1>Ahorcado</h1>
-   	<div class="col-sm-6">
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
-			<strong>${mensaje}</strong>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-   	<div class="col-sm-6">
-	  	<div  id="ahorcado" class="fallo${contador}"></div> 
-	  		<script src="js/main.js"></script> 
-	</div>
-
-	</div>
-
-	      
-		
+   		<h1>Ahorcado</h1>
+   	
+	   	<div class="col-sm-6">
+			<div class="alert alert-info alert-dismissible fade show" role="alert">
+				<strong>${mensaje}</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+	   	
+		   	<div class="col-sm-6">
+			  	<div  id="ahorcado" class="fallo${contador}"></div> 
+			  	<script src="js/main.js"></script> 
+			</div>
+		</div>		
 	</section>
+	
 	<form  class="form-signin" action="adivina" method="post" action="login">
 		<c:if test="${contador!=7}">   	  
 	  	 	<div class="mb-1"> 
@@ -55,13 +71,13 @@
 				PROBAR SUERTE
 			</button>
 		</c:if>
- 
-		<c:if test="${contador==7}">	
-			<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+		<c:if test="${contador==7}">   	
+ 			<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
 				VOLVER A EMPEZAR
 			</button>
-		</c:if> 
+		</c:if>
 	</form>
+	
 	<p>numero intentos:
     	<c:if test="${not empty contador}">	  
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -74,7 +90,7 @@
 <label class="alert alert-info alert-dismissible fade show" >${letra1}</label>
 <label class="alert alert-info alert-dismissible fade show" >${letra2}</label>
 
-
+</c:if>
 
 </body>	
 

@@ -23,8 +23,8 @@ private static final long serialVersionUID = 1L;
 private int contador=1;
 private int maxIntentos=7;
 
-private String correcta1="p";
-private String correcta2="i";
+private String correcta="pi";
+
 	
 
 
@@ -37,17 +37,19 @@ private String correcta2="i";
 		
 			String letra1 = request.getParameter("letra1");
 			String letra2 = request.getParameter("letra2");
-			//Palabra palabra =new Palabra(letra1 ,letra2); // palabra introducida
-			//Palabra palabra2 =new Palabra(correcta1 ,correcta2); // palabra que hay que adivinar
+			String palabra = (letra1 + letra2); 
+			
 				
 				try {
 			
 				
-						if (letra1.equals(correcta1)&&(letra2.equals(correcta2))) {	
+					if (palabra.equals(correcta)) {	
 							request.setAttribute("contador", contador);
 							request.setAttribute("maxInt", maxIntentos);
 							request.setAttribute("mensaje", "Has ganado");
-							
+							request.setAttribute("acierto", "acierto");
+							request.setAttribute("palabra", palabra);
+						
 							contador=1;	
 						
 					}else {	
@@ -73,7 +75,7 @@ private String correcta2="i";
 					
 					
 				}catch ( Exception e) {
-					request.setAttribute("mensaje", "Error Fatal");
+					request.setAttribute("mensaje", "Comienzas de nuevo");
 				}finally {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 				}
