@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.Dao.PalabraDAO;
 import com.ipartek.formacion.pojo.Palabra;
+import com.ipartek.formacion.pojos.Coche;
 
 
 
@@ -70,67 +71,57 @@ public class AdivinaController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
-		
-		
-		
-		
-		//String palabraParametros = (letra1 + letra2);  // palabra parametros en un string
+
+		  // palabra parametros en un string
 		
 		String letra1 = request.getParameter("letra1");
 		String letra2 = request.getParameter("letra2");
 		String id = request.getParameter("id");	
+	
+		String palabraParametros = (letra1 + letra2); // palabra con parametros
+			
 		
-			try {
-				
-				
-				
+		try {	
 				Long identificador = Long.parseLong(id);
-				Palabra palabraUsuario = new Palabra (identificador,letra1,letra2);
+				Palabra ObjetoParametros = new Palabra (identificador,letra1,letra2); //objeto con parametros
 						
-				palabraBaseDatos = new Palabra () ; 
+				  // palabra para guardar la de la base de datos
 				
-				palabraBaseDatos = palabraDAO.getPalabra(identificador, letra1, letra2); 
-				
-				if ( palabraBaseDatos == null ) {
+				Palabra p = new Palabra();
+				 p = palabraDAO.getPalabra(letra1, letra2);  
+				 
+				 if (p != null) { 
+				if ( p.equals(ObjetoParametros) ) {
 					
-					request.setAttribute("mensaje","no existe la palabra");
-				}else {
-					request.setAttribute("palabra",palabraBaseDatos);
-					if (palabraBaseDatos.equals(palabraUsuario)) {	
-						request.setAttribute("contador", contador);
-						request.setAttribute("maxInt", maxIntentos);
-						request.setAttribute("mensaje", "Has ganado");
-						request.setAttribute("acierto", "acierto");
-						request.setAttribute("palabra", palabraBaseDatos);
-					
-						contador=1;	
-					
-				}else {	
-					if (contador < maxIntentos) {
-						
-					request.setAttribute("letra1", letra1); 
-					request.setAttribute("letra2", letra2);// para que salga la palabra que has escrito
-					request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
+					request.setAttribute("mensaje","has ganado");
 					request.setAttribute("contador", contador);
 					request.setAttribute("maxInt", maxIntentos);
-					contador ++;
+					request.setAttribute("mensaje", "Has ganado");
+					request.setAttribute("acierto", "acierto");
 					
-					}else if (contador== maxIntentos) { 		
-						request.setAttribute("mensaje", "Has perdido");
+				
+					contador=1;	
+				}else {
+						if (contador < maxIntentos) {
+							
+						request.setAttribute("letra1", letra1); 
+						request.setAttribute("letra2", letra2);// para que salga la palabra que has escrito
+						request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
 						request.setAttribute("contador", contador);
-						request.setAttribute("maxInt", "No tienes mas intentos");
-						contador=1;	
-					}
-					
-					
-					 // todo que no empiece vacio
+						request.setAttribute("maxInt", maxIntentos);
+						contador ++;
+						
+						}else if (contador== maxIntentos) { 		
+							request.setAttribute("mensaje", "Has perdido");
+							request.setAttribute("contador", contador);
+							request.setAttribute("maxInt", "No tienes mas intentos");
+							contador=1;	
+						}
+
 				}	
-				
-				}
-				 
-				
-				
+			}else {
+				request.setAttribute("mensaje", "no has rellenado los campos");
+			}
 			}catch ( Exception e) {
 				request.setAttribute("mensaje", "Comienzas de nuevo");
 			}finally {

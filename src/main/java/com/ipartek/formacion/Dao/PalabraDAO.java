@@ -1,13 +1,14 @@
 package com.ipartek.formacion.Dao;
 
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ipartek.formacion.modelo.ConnectionManager;
-import com.ipartek.formacion.modelo.pojo.Usuario;
+import com.ipartek.formacion.Dao.ConnectionManager;
+
 import com.ipartek.formacion.pojo.Palabra;
 
 
@@ -46,7 +47,7 @@ public class PalabraDAO {
 	
 	
 	
-	public Palabra getPalabra(Long id, String letra1, String letra2) {
+	public Palabra getPalabra(String letra1, String letra2) {
 
 		Palabra palabra = null;  //declaro la palabra
 		
@@ -61,11 +62,11 @@ public class PalabraDAO {
 		
 			try (ResultSet rs = pst.executeQuery()) { // ejecuto contulta 
 				
-				while (rs.next()) { // hemos encontrado palabra mediante su id
-					palabra = new Palabra(); //creo la palabra donde alojo los resultados de la consulta 
+				while (rs.next()) { 
+					palabra = new Palabra(); //creo la palabra para incluir los resultados de la consulta 
 					palabra.setId(rs.getLong("id"));
-					palabra.setLetra1(rs.getString("letra1"));
-					palabra.setLetra2(rs.getString("letra2"));
+					//palabra.setLetra1(rs.getString("letra1"));
+					//palabra.setLetra2(rs.getString("letra2"));
 				
 				}
 			}

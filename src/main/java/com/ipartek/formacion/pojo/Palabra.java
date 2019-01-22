@@ -12,7 +12,7 @@ public class Palabra {
 	public Palabra() {
 	
 			super();
-			this.id = -1L ;
+			this.id = -3L ;
 			this.letra1 = "";
 			this.letra2 = "";
 		}
