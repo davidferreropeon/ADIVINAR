@@ -1,0 +1,84 @@
+package com.ipartek.formacion.Dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.ipartek.formacion.modelo.ConnectionManager;
+import com.ipartek.formacion.modelo.pojo.Usuario;
+import com.ipartek.formacion.pojo.Palabra;
+
+
+
+
+
+public class PalabraDAO {
+
+	// dao
+	private static PalabraDAO INSTANCE = null;
+	
+	// log 
+	//private final static Logger LOG = Logger.getLogger(PalabraDAO.class);
+
+	// consultas sql con parametros almacenados
+	
+	
+	
+	
+	
+	// metodo constructor superclase
+	private PalabraDAO() {
+		super();
+	}
+
+	// instance singleton
+	public synchronized static PalabraDAO getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new PalabraDAO();
+		}
+		return INSTANCE;
+	}
+
+
+
+	
+	
+	
+	public Palabra getPalabra(Long id, String letra1, String letra2) {
+
+		Palabra palabra = null;  //declaro la palabra
+		
+		String sql = "SELECT id, letra1, letra2 FROM palabra where letra1= ? and letra2=?;"; //consulta
+ 
+		try (Connection conn = ConnectionManager.getConnection(); //Establezco conexion
+			PreparedStatement pst = conn.prepareStatement(sql);) { // creo objeto statement
+			
+			// parametros de entrada en la consulta
+			pst.setString(1,letra1);
+			pst.setString(2,letra2);
+		
+			try (ResultSet rs = pst.executeQuery()) { // ejecuto contulta 
+				
+				while (rs.next()) { // hemos encontrado palabra mediante su id
+					palabra = new Palabra(); //creo la palabra donde alojo los resultados de la consulta 
+					palabra.setId(rs.getLong("id"));
+					palabra.setLetra1(rs.getString("letra1"));
+					palabra.setLetra2(rs.getString("letra2"));
+				
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return palabra;
+	}
+		
+	
+		
+		
+		
+		
+		
+}// fin multa dao

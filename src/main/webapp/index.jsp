@@ -29,7 +29,7 @@
 
 <h1>HAS GANADO</h1>
 	<div class="alert alert-info alert-dismissible fade show" role="alert">
-		<strong>La palabra correcta es <p class= "respuesta">${palabra}</p></strong>
+		<strong>La palabra correcta es <h3 class= "respuesta">${palabra}</h3></strong>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -61,7 +61,7 @@
 		</div>		
 	</section>
 	
-	<form  class="form-signin" action="adivina" method="post" action="login">
+	<form  class="form-signin" action="adivina?id=1" method="post" action="login">
 		<c:if test="${contador!=7}">   	  
 	  	 	<div class="mb-1"> 
 			   <input type="text" id="letra1" name=letra1 placeholder="letra 1"  class="form-control">
