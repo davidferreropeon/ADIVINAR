@@ -65,8 +65,8 @@ public class PalabraDAO {
 				while (rs.next()) { 
 					palabra = new Palabra(); //creo la palabra para incluir los resultados de la consulta 
 					palabra.setId(rs.getLong("id"));
-					//palabra.setLetra1(rs.getString("letra1"));
-					//palabra.setLetra2(rs.getString("letra2"));
+					palabra.setLetra1(rs.getString("letra1"));
+					palabra.setLetra2(rs.getString("letra2"));
 				
 				}
 			}

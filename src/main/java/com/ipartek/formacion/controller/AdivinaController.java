@@ -12,10 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.Dao.PalabraDAO;
 import com.ipartek.formacion.pojo.Palabra;
-import com.ipartek.formacion.pojos.Coche;
-
-
-
 
 @WebServlet("/adivina")
 public class AdivinaController extends HttpServlet {
@@ -47,16 +43,8 @@ public class AdivinaController extends HttpServlet {
 		super.init(config);
 		palabraDAO = PalabraDAO.getInstance();
 		palabraBaseDatos = new Palabra();
-		
-	
+
 	}
-
-
-
-
-
-
-
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +68,7 @@ public class AdivinaController extends HttpServlet {
 	
 		String palabraParametros = (letra1 + letra2); // palabra con parametros
 			
-		
+	
 		try {	
 				Long identificador = Long.parseLong(id);
 				Palabra ObjetoParametros = new Palabra (identificador,letra1,letra2); //objeto con parametros
@@ -89,16 +77,17 @@ public class AdivinaController extends HttpServlet {
 				
 				Palabra p = new Palabra();
 				 p = palabraDAO.getPalabra(letra1, letra2);  
-				 
+				 p.getLetra1();
 				 if (p != null) { 
-				if ( p.equals(ObjetoParametros) ) {
+				//if ( p.equals(ObjetoParametros) ) {
 					
 					request.setAttribute("mensaje","has ganado");
 					request.setAttribute("contador", contador);
 					request.setAttribute("maxInt", maxIntentos);
 					request.setAttribute("mensaje", "Has ganado");
 					request.setAttribute("acierto", "acierto");
-					
+					request.setAttribute("letra1", p.getLetra1());
+					request.setAttribute("letra2", p.getLetra2());
 				
 					contador=1;	
 				}else {
@@ -119,9 +108,7 @@ public class AdivinaController extends HttpServlet {
 						}
 
 				}	
-			}else {
-				request.setAttribute("mensaje", "no has rellenado los campos");
-			}
+			
 			}catch ( Exception e) {
 				request.setAttribute("mensaje", "Comienzas de nuevo");
 			}finally {
