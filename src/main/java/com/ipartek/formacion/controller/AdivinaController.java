@@ -107,14 +107,14 @@ public class AdivinaController extends HttpServlet {
 		
 		
 		
-		private void jugar(HttpServletRequest request) {
+		private void jugar(HttpServletRequest request) { 
 					
 				Long identificador = Long.parseLong(id);
 				Palabra ObjetoParametros = new Palabra (identificador,letra1,letra2); //objeto con parametros						
 				  // palabra para guardar la de la base de datos
 				
 				Palabra p = new Palabra();
-				 p = palabraDAO.getPalabra(letra1, letra2);  
+				 p = palabraDAO.getPalabra(letra1, letra2);  // para obtener palabra de la base de datos
 				 try {
 					 
 					 // logica juego
@@ -122,7 +122,7 @@ public class AdivinaController extends HttpServlet {
 						 if (contador < maxIntentos) {						
 								;// para que salga la palabra que has escrito
 								getParametros(request);
-								request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
+								request.setAttribute("mensaje", "Has fallado");					
 								contador ++;
 									
 								
@@ -159,7 +159,8 @@ public class AdivinaController extends HttpServlet {
 
 			
 			try { //todo que la id sea -1 para nuevas palabras en lugar de actualizar
-			palabraDAO.update(palabraActualizar); 
+			palabraDAO.update(palabraActualizar);
+			request.setAttribute("mensaje", "Palabra actualizada");
 			
 			}catch ( SQLException e) {
 				request.setAttribute("mensaje", "error fatal en metodo DAO update");

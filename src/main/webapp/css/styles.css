@@ -1,6 +1,7 @@
 
 h1 {
     color: #3DA9C7;
+    text-align: center;
 }
 
 .respuesta {
@@ -14,7 +15,36 @@ h1 {
     background-image: url('../images/sprite.jpg');
     border: 1px solid  #3DA9C7;
 }
-
+.mensaje {
+    height: 10%;
+    width: 90%;
+    border: 1px solid  #3DA9C7;
+    align-items: center;
+  justify-content: center;
+}
+.flex-container{
+  padding: 20 px;
+  margin: 20 px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+row {
+  width: 100%;
+}
+.flex-item {
+  background: tomato;
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin: 10px;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
 .fallo0{
     background-position-x: -0x;
 }

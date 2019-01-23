@@ -79,7 +79,7 @@ public class PalabraDAO {
 	public boolean update(Palabra p) throws SQLException {
 
 		boolean resul = false;
-		String sql = "UPDATE `palabra` SET letra1 = '?' , letra2 = '?' WHERE id = ?;";
+		String sql = "UPDATE `palabra` SET id=1, letra1 = ? , letra2 = ? WHERE id = ?;";
 		try (Connection conn = ConnectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
 			
 			pst.setString(1, p.getLetra1());
