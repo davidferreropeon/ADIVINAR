@@ -29,7 +29,7 @@
 
 <h1>HAS GANADO</h1>
 	<div class="alert alert-info alert-dismissible fade show" role="alert">
-		<strong>La palabra correcta es <h3 class= "respuesta">${Letra1}${Letra}</h3></strong>
+		<strong>La palabra correcta es <h3 class= "respuesta">${letra1}${letra2}</h3></strong>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>

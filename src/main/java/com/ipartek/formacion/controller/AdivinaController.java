@@ -78,8 +78,9 @@ public class AdivinaController extends HttpServlet {
 				Palabra p = new Palabra();
 				 p = palabraDAO.getPalabra(letra1, letra2);  
 				 p.getLetra1();
-				 if (p != null) { 
-				//if ( p.equals(ObjetoParametros) ) {
+				 
+				 
+				 if (  p.equals(null))  {
 					
 					request.setAttribute("mensaje","has ganado");
 					request.setAttribute("contador", contador);
@@ -90,9 +91,12 @@ public class AdivinaController extends HttpServlet {
 					request.setAttribute("letra2", p.getLetra2());
 				
 					contador=1;	
-				}else {
-						if (contador < maxIntentos) {
-							
+				}
+				 
+				 else  {
+					
+
+				 	if (contador < maxIntentos) {						
 						request.setAttribute("letra1", letra1); 
 						request.setAttribute("letra2", letra2);// para que salga la palabra que has escrito
 						request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
@@ -100,14 +104,17 @@ public class AdivinaController extends HttpServlet {
 						request.setAttribute("maxInt", maxIntentos);
 						contador ++;
 						
-						}else if (contador== maxIntentos) { 		
-							request.setAttribute("mensaje", "Has perdido");
-							request.setAttribute("contador", contador);
-							request.setAttribute("maxInt", "No tienes mas intentos");
-							contador=1;	
-						}
+					}else if (contador== maxIntentos) { 		
+						request.setAttribute("mensaje", "Has perdido");
+						request.setAttribute("contador", contador);
+						request.setAttribute("maxInt", "No tienes mas intentos");
+						contador=1;	
+					}
+				}
+					
+				
 
-				}	
+					
 			
 			}catch ( Exception e) {
 				request.setAttribute("mensaje", "Comienzas de nuevo");
