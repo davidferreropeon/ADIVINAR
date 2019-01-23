@@ -25,72 +25,81 @@
 	
 	
 <body>
-<c:if test="${not empty acierto}">	
-
-<h1>HAS GANADO</h1>
-	<div class="alert alert-info alert-dismissible fade show" role="alert">
-		<strong>La palabra correcta es <h3 class= "respuesta">${letra1}${letra2}</h3></strong>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-
-	<form  class="form-signin" action="adivina" method="post" action="login">
-		<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
-			VOLVER A EMPEZAR
-		</button>
-	</form>
-</c:if>
-<c:if test="${empty acierto}">	
-
-   <section class = "flex-row" >
-   		<h1>Ahorcado</h1>
-   	
-	   	<div class="col-sm-6">
+		<c:if test="${not empty acierto}">	
+		
+		<h1>HAS GANADO</h1>
 			<div class="alert alert-info alert-dismissible fade show" role="alert">
-				<strong>${mensaje}</strong>
+				<strong>La palabra correcta es <h3 class= "respuesta">${letra1}${letra2}</h3></strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-	   	
-		   	<div class="col-sm-6">
-			  	<div  id="ahorcado" class="fallo${contador}"></div> 
-			  	<script src="js/main.js"></script> 
-			</div>
-		</div>		
-	</section>
-	
-	<form  class="form-signin" action="adivina?id=1" method="post" action="login">
-		<c:if test="${contador!=7}">   	  
-	  	 	<div class="mb-1"> 
-			   <input type="text" id="letra1" name=letra1 placeholder="letra 1"  class="form-control">
-			   <input type="text" id="letra2" name=letra2 placeholder=" letra 2"  class="form-control">
-		 	</div>
-		    <button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
-				PROBAR SUERTE
-			</button>
+		
+			<form  class="form-signin" action="adivina?id=1&op=jugar" method="post" action="login">
+				<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+					VOLVER A EMPEZAR
+				</button>
+			</form>
 		</c:if>
-		<c:if test="${contador==7}">   	
- 			<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
-				VOLVER A EMPEZAR
-			</button>
+		
+		<c:if test="${empty acierto}">		
+		   <section class = "flex-row" >
+		   		<h1>Ahorcado</h1>
+		   	
+			   	<div class="col-sm-6">
+					<div class="alert alert-info alert-dismissible fade show" role="alert">
+						<strong>${mensaje}</strong>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+			   	
+				   	<div class="col-sm-6">
+					  	<div  id="ahorcado" class="fallo${contador}"></div> 
+					  	<script src="js/main.js"></script> 
+					</div>
+				</div>		
+			</section>
+			
+			<form  class="form-signin" action="adivina?id=1&op=jugar" method="post" action="login">
+				<c:if test="${contador!=7}">   	  
+			  	 	<div class="mb-1"> 
+					   <input type="text" id="letra1" name=letra1 placeholder="letra 1"  class="form-control">
+					   <input type="text" id="letra2" name=letra2 placeholder=" letra 2"  class="form-control">
+				 	</div>
+				    <button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+						PROBAR SUERTE
+					</button>
+				</c:if>
+				<c:if test="${contador==7}">   	
+		 			<button class="btn btn-lg  btn-block mb-3 mt-3  btn-info" type="submit">
+						VOLVER A EMPEZAR
+					</button>
+				</c:if>
+			</form>
+			
+			<p>numero intentos:
+		    	<c:if test="${not empty contador}">	  
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						 ${contador}/${maxInt}	 
+					</div>	 	
+			 	</c:if>
+			 </p> 
+		
+		
+		<a href="actualizarPalabra.jsp" class="btn btn-outline-success mb-2">CAMBIAR PALABRA</a>
+		
+				   	  
+			  	 	
+				   
+				
+			
+		
+		
+		<label class="alert alert-info alert-dismissible fade show" >${letra1}</label>
+		<label class="alert alert-info alert-dismissible fade show" >${letra2}</label>
+		
 		</c:if>
-	</form>
-	
-	<p>numero intentos:
-    	<c:if test="${not empty contador}">	  
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-				 ${contador}/${maxInt}	 
-			</div>	 	
-	 	</c:if>
-	 </p> 
-
-
-<label class="alert alert-info alert-dismissible fade show" >${letra1}</label>
-<label class="alert alert-info alert-dismissible fade show" >${letra2}</label>
-
-</c:if>
 
 </body>	
 

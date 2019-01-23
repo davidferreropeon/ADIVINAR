@@ -1,6 +1,7 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException; //
+import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -22,12 +23,18 @@ public class AdivinaController extends HttpServlet {
 	
 	// variables parametros
 	
-	//private String letra1;
-	//private String letra2;
+	public  String id ="";
+	public   String letra1 ="";
+	public  String letra2 ="";
+	public  String letra1u ="";
+	public  String letra2u ="";
+	public String op ="";
+	public String  palabraParametros="";
+	
 	
 	
 	// variables logica
-	private int contador=1;
+	private int contador=0;
 	private int maxIntentos=7;
 	//private String correcta="pi";
 	
@@ -59,74 +66,107 @@ public class AdivinaController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		  // palabra parametros en un string
 		
-		String letra1 = request.getParameter("letra1");
-		String letra2 = request.getParameter("letra2");
-		String id = request.getParameter("id");	
-	
-		String palabraParametros = (letra1 + letra2); // palabra con parametros
-			
-	
+		
+		
 		try {	
-				Long identificador = Long.parseLong(id);
-				Palabra ObjetoParametros = new Palabra (identificador,letra1,letra2); //objeto con parametros
+			getParametros(request);
+			// realizar operacion
+			switch (op) {
+				case "jugar":
+					jugar(request);
+					break;
+				case "update":
+					update(request);
+					break;
+					
+				}
+		
+		}catch ( Exception e) {
+			request.setAttribute("mensaje", "error fatal en LOGICA ");
+		}finally {
+			
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+			
+		}
 						
+	}// fin doproces
+		
+		private void getParametros(HttpServletRequest request) {
+			  // palabra parametros en un string
+			id = request.getParameter("id");	
+			letra1 = request.getParameter("letra1");
+			letra2 = request.getParameter("letra2");
+			op = request.getParameter("op");
+			request.setAttribute("maxInt", maxIntentos);
+			request.setAttribute("contador", contador);
+		
+			palabraParametros = (letra1 + letra2); // palabra con parametros
+				
+			}
+		
+		
+		
+		private void jugar(HttpServletRequest request) {
+					
+				Long identificador = Long.parseLong(id);
+				Palabra ObjetoParametros = new Palabra (identificador,letra1,letra2); //objeto con parametros						
 				  // palabra para guardar la de la base de datos
 				
 				Palabra p = new Palabra();
 				 p = palabraDAO.getPalabra(letra1, letra2);  
-				 p.getLetra1();
+				 try {
+					 
+					 // logica juego
+					 if (  p == null){
+						 if (contador < maxIntentos) {						
+								;// para que salga la palabra que has escrito
+								getParametros(request);
+								request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
+								contador ++;
+									
+								
+						 }else if (contador== maxIntentos){ 		
+								getParametros(request);
+								request.setAttribute("mensaje", "Has perdido");
+								contador=0;	
+						}				
+					}else{
+							request.setAttribute("mensaje","has ganado");			
+							request.setAttribute("acierto", "acierto");
+							contador=0;	
+							request.setAttribute("letra1", p.getLetra1());
+							request.setAttribute("letra2", p.getLetra2());
+							
+					} 
+					  
+				 }catch ( Exception e) {
+					 request.setAttribute("mensaje", "error fatal en metodo DAO JUgar");
+				 }
 				 
-				 
-				 if (  p.equals(null))  {
-					
-					request.setAttribute("mensaje","has ganado");
-					request.setAttribute("contador", contador);
-					request.setAttribute("maxInt", maxIntentos);
-					request.setAttribute("mensaje", "Has ganado");
-					request.setAttribute("acierto", "acierto");
-					request.setAttribute("letra1", p.getLetra1());
-					request.setAttribute("letra2", p.getLetra2());
-				
-					contador=1;	
-				}
-				 
-				 else  {
-					
+		
+		}// fin jugar
 
-				 	if (contador < maxIntentos) {						
-						request.setAttribute("letra1", letra1); 
-						request.setAttribute("letra2", letra2);// para que salga la palabra que has escrito
-						request.setAttribute("mensaje", "Has fallado, prueba otra vez");					
-						request.setAttribute("contador", contador);
-						request.setAttribute("maxInt", maxIntentos);
-						contador ++;
-						
-					}else if (contador== maxIntentos) { 		
-						request.setAttribute("mensaje", "Has perdido");
-						request.setAttribute("contador", contador);
-						request.setAttribute("maxInt", "No tienes mas intentos");
-						contador=1;	
-					}
-				}
-					
-				
-
-					
+		
+		
+		private void update(HttpServletRequest request) {
+			Long identificador = Long.parseLong(id);
+			letra1u = request.getParameter("letra1u");
+			letra2u = request.getParameter("letra2u");
+			Palabra palabraActualizar = new Palabra (identificador,letra1u , letra2u); //objeto con parametros						
+			  // palabra para guardar la de la base de datos
 			
-			}catch ( Exception e) {
-				request.setAttribute("mensaje", "Comienzas de nuevo");
-			}finally {
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			}
-	}
 
-	
-	
-	
-	}
+			
+			try { //todo que la id sea -1 para nuevas palabras en lugar de actualizar
+			palabraDAO.update(palabraActualizar); 
+			
+			}catch ( SQLException e) {
+				request.setAttribute("mensaje", "error fatal en metodo DAO update");
+			}
+			
+		}
+}// fin
 
 	
 	
